@@ -364,3 +364,32 @@ video {
   background: #000;
 }
 /* ============================================ */
+
+/* Лайтбокс */
+#lightbox {
+  backdrop-filter: blur(5px);
+  padding: 10px;
+}
+
+#lightbox img {
+  width: auto;
+  height: auto;
+  max-width: 95%;
+  max-height: 85%;
+}
+
+/* 📱 Адаптивность для всех экранов */
+@media (max-width: 768px) {
+  #lightbox img {
+    max-width: 100%;
+    max-height: 80%;
+  }
+}
+
+@media (max-width: 480px) { /* iPhone SE, iPhone 5 */
+  #lightbox img {
+    max-width: 100%;
+    max-height: 75%;
+    border-radius: 6px;
+  }
+}
