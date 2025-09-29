@@ -500,3 +500,13 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
 }); // end DOMContentLoaded
+
+ (function(){
+    const rail = document.querySelector('#parovoz-posters .poster-rail');
+    const prev = document.querySelector('#parovoz-posters .prev');
+    const next = document.querySelector('#parovoz-posters .next');
+    if(!rail) return;
+    const scrollAmount = 360; 
+    prev.addEventListener('click', ()=> rail.scrollBy({left: -scrollAmount, behavior:'smooth'}));
+    next.addEventListener('click', ()=> rail.scrollBy({left: scrollAmount, behavior:'smooth'}));
+  })();
