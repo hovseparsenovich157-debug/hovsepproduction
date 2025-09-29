@@ -55,7 +55,6 @@
     timeLabel.textContent = cur + ' / ' + dur;
     progress.setAttribute('aria-valuenow', Math.floor(pct));
   });
-  // Seek on click/tap
   function seek(e){
     const rect = progress.getBoundingClientRect();
     const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
@@ -79,7 +78,7 @@
     muteBtn.textContent = video.muted ? '🔈' : '🔊';
   });
 
-  // pip (if supported)
+  // pip
   pipBtn.addEventListener('click', async ()=> {
     if(document.pictureInPictureEnabled){
       try{
@@ -87,7 +86,6 @@
         else await document.exitPictureInPicture();
       }catch(e){ console.warn('PIP error', e) }
     } else {
-      // fallback: toggle small-screen collapse
       playerWrap.classList.toggle('collapsed');
     }
   });
@@ -97,7 +95,7 @@
     const el = video;
     if(!document.fullscreenElement){
       if(el.requestFullscreen) el.requestFullscreen().catch(()=>{});
-      else if(el.webkitEnterFullscreen) el.webkitEnterFullscreen(); // iOS Safari fullscreen for video tag
+      else if(el.webkitEnterFullscreen) el.webkitEnterFullscreen();
     } else {
       document.exitFullscreen().catch(()=>{});
     }
@@ -111,27 +109,22 @@
     return m + ':' + (s<10? '0'+s : s);
   }
 
-  // update UI on play/pause
   video.addEventListener('play', updatePlayState);
   video.addEventListener('pause', updatePlayState);
 
-  // show duration when metadata loaded
   video.addEventListener('loadedmetadata', ()=> {
     timeLabel.textContent = formatTime(0) + ' / ' + formatTime(video.duration || 0);
   });
 
-  // collapse control
   collapseBtn.addEventListener('click', ()=> {
     playerWrap.classList.toggle('collapsed');
     collapseBtn.textContent = playerWrap.classList.contains('collapsed') ? '▼' : '▲';
   });
 
-  // accessibility: space toggles play when focus on button
   playBtn.addEventListener('keydown', (e)=> {
     if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); playBtn.click(); }
   });
 
-  // attempt unlock on first interaction to satisfy autoplay policies on mobile
   function unlock(){
     video.muted = video.muted || false;
     const p = video.play();
@@ -142,7 +135,21 @@
   window.addEventListener('pointerdown', unlock);
   window.addEventListener('keydown', unlock);
 
-  // initial UI state
-  updatePlayState();
+  // 🔹 Автовключение после завершения
+  video.addEventListener('ended', ()=> {
+    video.currentTime = 0;
+    video.play().catch(()=>{});
+  });
 
+  updatePlayState();
 })();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const mainPlayer = document.getElementById("main-player");
+  if (mainPlayer) {
+    mainPlayer.addEventListener("ended", () => {
+      mainPlayer.currentTime = 0;
+      mainPlayer.play();
+    });
+  }
+});
