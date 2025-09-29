@@ -762,3 +762,90 @@ video {
   height: 40px;
   cursor: pointer;
 }
+
+    /* ==== Паровозик ==== */
+.poster-rail-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 20px;
+}
+.poster-rail {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.poster-rail::-webkit-scrollbar { display: none; }
+
+.poster-item {
+  flex: 0 0 auto;
+  width: 240px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  scroll-snap-align: center;
+}
+.poster-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+.poster-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+}
+
+.rail-btn {
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 8px;
+  z-index: 5;
+}
+.rail-btn.prev { margin-right: 10px; }
+.rail-btn.next { margin-left: 10px; }
+
+/* ==== Плеер поверх ==== */
+.player-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.player-overlay.active { display: flex; }
+.player-box {
+  width: 100%;
+  max-width: 1200px;
+  padding: 10px;
+}
+.player-box video {
+  width: 100%;
+  max-height: 90vh;
+  border-radius: 10px;
+  background: black;
+}
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 28px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
