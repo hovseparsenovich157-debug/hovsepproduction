@@ -84,19 +84,36 @@
           <div class="poster-card"><img src="photo_2025-09-24_17-14-41.jpg" alt="Poster B"></div>
         </div>
 <!-- ===== Видео-карточки ===== -->
-<!-- ====== ПОСТЕРЫ "ПАРОВОЗИК" ====== -->
+<!-- ====== ПОСТЕРЫ "ПАРОВОЗИК" С ПЛЕЕРОМ ====== -->
 <section id="parovoz-posters" aria-label="Галерея постеров">
   <div class="poster-rail-wrapper">
     <button class="rail-btn prev" aria-label="Влево">‹</button>
-    <div class="poster-rail">
-      <div class="poster-item"><img src="chto budet.png" alt="Постер 1"></div>
-      <div class="poster-item"><img src="grustno.png" alt="Постер 2"></div>
-      <div class="poster-item"><img src="skoro.jpg" alt="Постер 3"></div>
-      <div class="poster-item"><img src="video1.png" alt="Постер 4"></div>
+    <div class="poster-rail" id="postersRow">
+      <div class="poster-item" data-video="videos/video1.mp4">
+        <img src="chto budet.png" alt="Постер 1">
+      </div>
+      <div class="poster-item" data-video="videos/video2.mp4">
+        <img src="grustno.png" alt="Постер 2">
+      </div>
+      <div class="poster-item" data-video="videos/video3.mp4">
+        <img src="skoro.jpg" alt="Постер 3">
+      </div>
+      <div class="poster-item" data-video="videos/video4.mp4">
+        <img src="video1.png" alt="Постер 4">
+      </div>
     </div>
     <button class="rail-btn next" aria-label="Вправо">›</button>
   </div>
 </section>
+
+<!-- Оверлей плеера -->
+<div class="player-overlay" id="playerOverlay">
+  <button class="close-btn" id="closeOverlay">✕</button>
+  <div class="player-box">
+    <video id="mainVideo" controls playsinline webkit-playsinline></video>
+  </div>
+</div>
+<!-- ===== /ПОСТЕРЫ "ПАРОВОЗИК" ===== -->
 <!-- ===== /Видео-карточки ===== -->
 
 
