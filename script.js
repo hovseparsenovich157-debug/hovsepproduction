@@ -510,3 +510,62 @@ window.addEventListener('DOMContentLoaded', () => {
     prev.addEventListener('click', ()=> rail.scrollBy({left: -scrollAmount, behavior:'smooth'}));
     next.addEventListener('click', ()=> rail.scrollBy({left: scrollAmount, behavior:'smooth'}));
   })();
+
+const overlay = document.getElementById('playerOverlay');
+const videoEl = document.getElementById('mainVideo');
+const closeBtn = document.getElementById('closeOverlay');
+const postersRow = document.getElementById('postersRow');
+
+// --- Клик по постеру ---
+document.querySelectorAll('.poster').forEach(poster => {
+  poster.addEventListener('click', () => {
+    const src = poster.dataset.video;
+    videoEl.src = src;
+    overlay.classList.add('active');
+    tryEnterFullscreen(videoEl);
+    videoEl.play().catch(()=>{});
+  });
+});
+
+// --- Закрытие плеера ---
+closeBtn.addEventListener('click', closePlayer);
+function closePlayer() {
+  videoEl.pause();
+  videoEl.src = '';
+  overlay.classList.remove('active');
+  if (document.fullscreenElement) document.exitFullscreen();
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && overlay.classList.contains('active')) closePlayer();
+});
+
+// --- Фуллскрин ---
+function tryEnterFullscreen(el) {
+  if (el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+  else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+}
+
+// --- Свайп (мобильные) ---
+let startX = 0;
+let scrollStart = 0;
+
+postersRow.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+  scrollStart = postersRow.scrollLeft;
+}, { passive: true });
+
+postersRow.addEventListener('touchend', (e) => {
+  let endX = e.changedTouches[0].clientX;
+  let diff = startX - endX;
+  const cardWidth = postersRow.querySelector('.poster').offsetWidth + 16;
+
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) {
+      // свайп влево
+      postersRow.scrollTo({ left: scrollStart + cardWidth, behavior: 'smooth' });
+    } else {
+      // свайп вправо
+      postersRow.scrollTo({ left: scrollStart - cardWidth, behavior: 'smooth' });
+    }
+  }
+});
