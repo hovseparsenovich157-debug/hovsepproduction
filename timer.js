@@ -1,52 +1,31 @@
-const releaseDate = new Date("2026-04-24T00:00:00").getTime();
+function startCountdown() {
+  const targetDate = new Date("2026-04-24T00:00:00").getTime();
 
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
 
-function updateCountdown() {
-const now = new Date().getTime();
-const distance = releaseDate - now;
+    if (distance <= 0) {
+      document.querySelectorAll("#countdown .cd-days").forEach(e => e.textContent = "00");
+      document.querySelectorAll("#countdown .cd-hours").forEach(e => e.textContent = "00");
+      document.querySelectorAll("#countdown .cd-minutes").forEach(e => e.textContent = "00");
+      document.querySelectorAll("#countdown .cd-seconds").forEach(e => e.textContent = "00");
+      return;
+    }
 
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-if (distance <= 0) {
-document.getElementById("countdown-section").style.display = "none";
-return;
+    document.querySelectorAll("#countdown .cd-days").forEach(e => e.textContent = days.toString().padStart(2, "0"));
+    document.querySelectorAll("#countdown .cd-hours").forEach(e => e.textContent = hours.toString().padStart(2, "0"));
+    document.querySelectorAll("#countdown .cd-minutes").forEach(e => e.textContent = minutes.toString().padStart(2, "0"));
+    document.querySelectorAll("#countdown .cd-seconds").forEach(e => e.textContent = seconds.toString().padStart(2, "0"));
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 }
 
-
-const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-
-document.getElementById("days").textContent = days.toString().padStart(2, '0');
-document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
-document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
-document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
-}
-
-
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
-// Переключатель языка: 'ru' или 'en'
-function setLanguage(lang) {
-  document.querySelectorAll('[data-i18n-lang]').forEach(el => {
-    el.style.display = (el.getAttribute('data-i18n-lang') === lang) ? '' : 'none';
-  });
-}
-
-// Пример: установить английский
-// setLanguage('en');
-// Или русский:
-// setLanguage('ru');
-
-function updateCounters({ daily, monthly, yearly, total }) {
-  const safe = v => (v === undefined || v === null) ? 0 : v;
-  document.getElementById('dailyCounter').textContent = safe(daily);
-  document.getElementById('monthlyCounter').textContent = safe(monthly);
-  document.getElementById('yearlyCounter').textContent = safe(yearly);
-  document.getElementById('totalCounter').textContent = safe(total);
-}
-
-// Пример вызова:
-updateCounters({ daily: 12, monthly: 345, yearly: 2345, total: 9876 });
+document.addEventListener("DOMContentLoaded", startCountdown);
