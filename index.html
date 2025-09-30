@@ -10,16 +10,14 @@
 </head>
 <body class="dark-theme">
 
-<!-- HEADER -->
 <header class="header">
-  <div class="logo">Mesropyans Production</div>
+  <div class="logo text-neon">Mesropyans Production</div>
   <div class="header-buttons">
     <button id="themeToggle" class="btn">Theme</button>
     <button id="langToggle" class="btn">EN/RU</button>
   </div>
 </header>
 
-<!-- CAROUSEL -->
 <section class="carousel-wrap">
   <button class="prev">‹</button>
   <div class="carousel">
@@ -31,34 +29,35 @@
   <button class="next">›</button>
 </section>
 
-<!-- MAIN VIDEO PLAYER -->
-<section class="main-video-section">
+<section class="main-video-section video-neon">
   <video id="mainPlayer" poster="poster_skoro.jpg" playsinline autoplay muted>
     <source src="skoro.mp4" type="video/mp4">
   </video>
   <div class="main-controls">
     <button id="mainPlay" class="control-btn">▶</button>
     <button id="mainMute" class="control-btn">🔊</button>
-    <button id="mainFs" class="control-btn">⛶</button>
   </div>
-  <h2 data-lang-en>Premiere of the Year</h2>
-  <h2 data-lang-ru style="display:none">Премьера года</h2>
+  <div class="progress-container">
+    <div id="progressBar" class="progress-bar">
+      <div id="progressFilled" class="progress-filled"></div>
+    </div>
+  </div>
+  <h2 data-lang-en class="text-neon">Premiere of the Year</h2>
+  <h2 data-lang-ru class="text-neon" style="display:none">Премьера года</h2>
 </section>
 
-<!-- COUNTDOWN -->
 <section class="countdown-section">
-  <h3 data-lang-en>Time left until the premiere</h3>
-  <h3 data-lang-ru style="display:none">До премьеры осталось</h3>
+  <h3 data-lang-en class="text-neon">Time left until the premiere</h3>
+  <h3 data-lang-ru class="text-neon" style="display:none">До премьеры осталось</h3>
   <div class="countdown" id="countdown">
-    <div class="time-box"><span id="days">00</span><small data-lang-en>Days</small><small data-lang-ru style="display:none">Дней</small></div>
-    <div class="time-box"><span id="hours">00</span><small data-lang-en>Hours</small><small data-lang-ru style="display:none">Часов</small></div>
-    <div class="time-box"><span id="minutes">00</span><small data-lang-en>Minutes</small><small data-lang-ru style="display:none">Минут</small></div>
-    <div class="time-box"><span id="seconds">00</span><small data-lang-en>Seconds</small><small data-lang-ru style="display:none">Секунд</small></div>
+    <div class="time-box text-neon"><span id="days">00</span><small data-lang-en>Days</small><small data-lang-ru style="display:none">Дней</small></div>
+    <div class="time-box text-neon"><span id="hours">00</span><small data-lang-en>Hours</small><small data-lang-ru style="display:none">Часов</small></div>
+    <div class="time-box text-neon"><span id="minutes">00</span><small data-lang-en>Minutes</small><small data-lang-ru style="display:none">Минут</small></div>
+    <div class="time-box text-neon"><span id="seconds">00</span><small data-lang-en>Seconds</small><small data-lang-ru style="display:none">Секунд</small></div>
   </div>
 </section>
 
-<!-- PAROVOZIK 3D POSTERS -->
-<section class="poster-train-3d">
+<section class="poster-train">
   <div id="posterTrack">
     <div class="poster" data-video="video1.mp4"><img src="poster1.jpg" alt="Video 1"></div>
     <div class="poster" data-video="grustno.mp4"><img src="poster2.jpg" alt="Video 2"></div>
@@ -67,23 +66,20 @@
   </div>
 </section>
 
-<!-- OVERLAY VIDEO PLAYER -->
 <div class="player-overlay" id="playerOverlay">
   <button class="close-btn" id="closeOverlay">✕</button>
-  <div class="player-box">
+  <div class="player-box video-neon">
     <video id="overlayVideo" controls playsinline></video>
     <div class="player-controls">
       <button id="playBtn" class="player-btn">▶</button>
       <button id="muteBtn" class="player-btn">🔊</button>
-      <button id="fsBtn" class="player-btn">⛶</button>
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
-  <p data-lang-en>© Mesropyans Production — All rights reserved.</p>
-  <p data-lang-ru style="display:none">© Mesropyans Production — Все права защищены.</p>
+  <p data-lang-en class="text-neon">© Mesropyans Production — All rights reserved.</p>
+  <p data-lang-ru class="text-neon" style="display:none">© Mesropyans Production — Все права защищены.</p>
 </footer>
 
 <script src="script.js"></script>
