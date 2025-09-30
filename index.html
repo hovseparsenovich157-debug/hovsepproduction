@@ -13,29 +13,33 @@
 <header class="header">
   <div class="logo text-neon">Mesropyans Production</div>
   <div class="header-buttons">
-    <button id="themeToggle" class="btn">Theme</button>
-    <button id="langToggle" class="btn">EN/RU</button>
+    <button id="themeToggle" class="btn"><img src="theme.png" alt="Theme"></button>
+    <button id="langToggle" class="btn"><img src="language.png" alt="Language"></button>
+    <button id="homeBtn" class="btn"><img src="home.png" alt="Home"></button>
   </div>
 </header>
 
+<!-- CAROUSEL -->
 <section class="carousel-wrap">
   <button class="prev">‹</button>
   <div class="carousel">
-    <div class="slide active"><img src="IMG_0421.jpg" alt="Slide 1"></div>
-    <div class="slide"><img src="post1.jpg" alt="Slide 2"></div>
-    <div class="slide"><img src="post2.jpg" alt="Slide 3"></div>
-    <div class="slide"><img src="post3.jpg" alt="Slide 4"></div>
+    <div class="slide active"><img src="post1.jpg" alt="Slide 1"></div>
+    <div class="slide"><img src="post2.jpg" alt="Slide 2"></div>
+    <div class="slide"><img src="post3.jpg" alt="Slide 3"></div>
   </div>
   <button class="next">›</button>
 </section>
 
+<!-- MAIN VIDEO -->
 <section class="main-video-section video-neon">
-  <video id="mainPlayer" poster="poster4.jpg" playsinline autoplay muted>
+  <video id="mainPlayer" poster="skoro.jpg" playsinline autoplay muted>
     <source src="skoro.mp4" type="video/mp4">
   </video>
   <div class="main-controls">
-    <button id="mainPlay" class="control-btn">▶</button>
-    <button id="mainMute" class="control-btn">🔊</button>
+    <button id="mainPlay" class="control-btn"><img src="play.png" alt="Play"></button>
+    <button id="mainMute" class="control-btn"><img src="volume-on.png" alt="Volume"></button>
+    <button id="rewind" class="control-btn">«15s</button>
+    <button id="forward" class="control-btn">+5s</button>
     <button id="mainFS" class="control-btn">⛶</button>
   </div>
   <div class="progress-container">
@@ -47,6 +51,7 @@
   <h2 data-lang-ru class="text-neon" style="display:none">Премьера года</h2>
 </section>
 
+<!-- COUNTDOWN -->
 <section class="countdown-section">
   <h3 data-lang-en class="text-neon">Time left until the premiere</h3>
   <h3 data-lang-ru class="text-neon" style="display:none">До премьеры осталось</h3>
@@ -58,13 +63,13 @@
   </div>
 </section>
 
-<!-- Паравозик -->
+<!-- ПАРОВОЗИК -->
 <section class="poster-train">
   <div id="posterTrack">
-    <div class="poster" data-video="video1.mp4"><img src="poster1.jpg" alt="Video 1"></div>
-    <div class="poster" data-video="grustno.mp4"><img src="poster2.jpg" alt="Video 2"></div>
-    <div class="poster" data-video="chto budet.mp4"><img src="poster3.jpg" alt="Video 3"></div>
-    <div class="poster" data-video="skoro.mp4"><img src="poster4.jpg" alt="Video 4"></div>
+    <div class="poster" data-video="chto budet.mp4"><img src="chto budet.png" alt="Video 1"></div>
+    <div class="poster" data-video="video1.mp4"><img src="video1.png" alt="Video 2"></div>
+    <div class="poster" data-video="skoro.mp4"><img src="skoro.jpg" alt="Video 3"></div>
+    <div class="poster" data-video="grustno.mp4"><img src="grustno.png" alt="Video 4"></div>
   </div>
 </section>
 
@@ -73,10 +78,6 @@
   <button class="close-btn" id="closeOverlay">✕</button>
   <div class="player-box video-neon">
     <video id="overlayVideo" controls playsinline></video>
-    <div class="player-controls">
-      <button id="playBtn" class="player-btn">▶</button>
-      <button id="muteBtn" class="player-btn">🔊</button>
-    </div>
   </div>
 </div>
 
