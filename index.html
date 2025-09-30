@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mesropyans Production</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body class="dark-theme">
 
 <!-- HEADER -->
 <header class="header">
-  <div class="logo">Mesropyans</div>
+  <div class="logo">Mesropyans Production</div>
   <div class="header-buttons">
     <button id="themeToggle" class="btn">Theme</button>
     <button id="langToggle" class="btn">EN/RU</button>
@@ -30,52 +31,54 @@
   <button class="next">›</button>
 </section>
 
-<!-- PAROVOZIK POSTERS -->
-<section class="poster-train">
-  <div id="postersRow">
-    <div class="poster" data-video="video1.mp4"><img src="chto budet.png" alt="Poster 1"></div>
-    <div class="poster" data-video="video2.mp4"><img src="grustno.png" alt="Poster 2"></div>
-    <div class="poster" data-video="video3.mp4"><img src="skoro.jpg" alt="Poster 3"></div>
-    <div class="poster" data-video="video4.mp4"><img src="video1.png" alt="Poster 4"></div>
+<!-- MAIN VIDEO PLAYER -->
+<section class="main-video-section">
+  <video id="mainPlayer" poster="poster_skoro.jpg" playsinline autoplay muted>
+    <source src="skoro.mp4" type="video/mp4">
+  </video>
+  <div class="main-controls">
+    <button id="mainPlay" class="control-btn">▶</button>
+    <button id="mainMute" class="control-btn">🔊</button>
+    <button id="mainFs" class="control-btn">⛶</button>
+  </div>
+  <h2 data-lang-en>Premiere of the Year</h2>
+  <h2 data-lang-ru style="display:none">Премьера года</h2>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section">
+  <h3 data-lang-en>Time left until the premiere</h3>
+  <h3 data-lang-ru style="display:none">До премьеры осталось</h3>
+  <div class="countdown" id="countdown">
+    <div class="time-box"><span id="days">00</span><small data-lang-en>Days</small><small data-lang-ru style="display:none">Дней</small></div>
+    <div class="time-box"><span id="hours">00</span><small data-lang-en>Hours</small><small data-lang-ru style="display:none">Часов</small></div>
+    <div class="time-box"><span id="minutes">00</span><small data-lang-en>Minutes</small><small data-lang-ru style="display:none">Минут</small></div>
+    <div class="time-box"><span id="seconds">00</span><small data-lang-en>Seconds</small><small data-lang-ru style="display:none">Секунд</small></div>
   </div>
 </section>
 
-<!-- VIDEO OVERLAY -->
+<!-- PAROVOZIK 3D POSTERS -->
+<section class="poster-train-3d">
+  <div id="posterTrack">
+    <div class="poster" data-video="video1.mp4"><img src="poster1.jpg" alt="Video 1"></div>
+    <div class="poster" data-video="grustno.mp4"><img src="poster2.jpg" alt="Video 2"></div>
+    <div class="poster" data-video="chto budet.mp4"><img src="poster3.jpg" alt="Video 3"></div>
+    <div class="poster" data-video="skoro.mp4"><img src="poster4.jpg" alt="Video 4"></div>
+  </div>
+</section>
+
+<!-- OVERLAY VIDEO PLAYER -->
 <div class="player-overlay" id="playerOverlay">
   <button class="close-btn" id="closeOverlay">✕</button>
   <div class="player-box">
-    <video id="mainVideo" controls playsinline></video>
+    <video id="overlayVideo" controls playsinline></video>
     <div class="player-controls">
-      <button id="playBtn" class="player-btn" title="Play/Pause">
-        <svg width="24" height="24" viewBox="0 0 24 24">
-          <polygon points="5,3 19,12 5,21" fill="#0ff"/>
-        </svg>
-      </button>
-      <button id="muteBtn" class="player-btn" title="Mute/Unmute">
-        <svg id="iconVolume" width="24" height="24" viewBox="0 0 24 24">
-          <path d="M3 9v6h4l5 5V4L7 9H3z" fill="#0ff"/>
-        </svg>
-      </button>
-      <button id="fsBtn" class="player-btn" title="Fullscreen">
-        <svg width="24" height="24" viewBox="0 0 24 24">
-          <path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zm6 10v6h-6v-2h4v-4h2zm-16 6v-6h2v4h4v2H4z" fill="#0ff"/>
-        </svg>
-      </button>
+      <button id="playBtn" class="player-btn">▶</button>
+      <button id="muteBtn" class="player-btn">🔊</button>
+      <button id="fsBtn" class="player-btn">⛶</button>
     </div>
   </div>
 </div>
-
-<!-- COUNTDOWN -->
-<section id="countdown-section">
-  <h2 data-lang-en>Time left until premiere</h2>
-  <h2 data-lang-ru style="display:none">До премьеры осталось</h2>
-  <div id="countdown">
-    <div class="time-box"><span class="cd-days">00</span><small>Days</small></div>
-    <div class="time-box"><span class="cd-hours">00</span><small>Hours</small></div>
-    <div class="time-box"><span class="cd-minutes">00</span><small>Minutes</small></div>
-    <div class="time-box"><span class="cd-seconds">00</span><small>Seconds</small></div>
-  </div>
-</section>
 
 <!-- FOOTER -->
 <footer>
