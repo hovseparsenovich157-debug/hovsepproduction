@@ -1,67 +1,88 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mesropyans Production</title>
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body class="dark-theme">
 
-<!-- ===== Header ===== -->
-<header>
-  <div>Mesropyans Production</div>
-  <div>
-    <button class="btn" id="homeBtn">Home</button>
-    <button class="btn" id="themeToggle">Theme</button>
-    <button class="btn" id="langToggle">Language</button>
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">Mesropyans</div>
+  <div class="header-buttons">
+    <button id="themeToggle" class="btn">Theme</button>
+    <button id="langToggle" class="btn">EN/RU</button>
   </div>
 </header>
 
-<!-- ===== Carousel ===== -->
+<!-- CAROUSEL -->
 <section class="carousel-wrap">
   <button class="prev">‹</button>
-  <div class="slide active"><img src="IMG_0421.jpg" alt="Slide 1"></div>
-  <div class="slide"><img src="post1.jpg" alt="Slide 2"></div>
-  <div class="slide"><img src="post3.jpg" alt="Slide 3"></div>
+  <div class="carousel">
+    <div class="slide active"><img src="IMG_0421.jpg" alt="Slide 1"></div>
+    <div class="slide"><img src="post1.jpg" alt="Slide 2"></div>
+    <div class="slide"><img src="post3.jpg" alt="Slide 3"></div>
+    <div class="slide"><img src="post4.jpg" alt="Slide 4"></div>
+  </div>
   <button class="next">›</button>
 </section>
 
-<!-- ===== Poster Train ===== -->
-<section id="parovoz-posters">
+<!-- PAROVOZIK POSTERS -->
+<section class="poster-train">
   <div id="postersRow">
-    <div class="poster" data-video="video1.mp4"><img src="photo1.png" alt="Poster 1"></div>
-    <div class="poster" data-video="video2.mp4"><img src="photo2.png" alt="Poster 2"></div>
-    <div class="poster" data-video="video3.mp4"><img src="photo3.png" alt="Poster 3"></div>
-    <div class="poster" data-video="video4.mp4"><img src="photo4.png" alt="Poster 4"></div>
+    <div class="poster" data-video="video1.mp4"><img src="chto budet.png" alt="Poster 1"></div>
+    <div class="poster" data-video="video2.mp4"><img src="grustno.png" alt="Poster 2"></div>
+    <div class="poster" data-video="video3.mp4"><img src="skoro.jpg" alt="Poster 3"></div>
+    <div class="poster" data-video="video4.mp4"><img src="video1.png" alt="Poster 4"></div>
   </div>
 </section>
 
-<!-- ===== Video Overlay ===== -->
+<!-- VIDEO OVERLAY -->
 <div class="player-overlay" id="playerOverlay">
   <button class="close-btn" id="closeOverlay">✕</button>
   <div class="player-box">
     <video id="mainVideo" controls playsinline></video>
+    <div class="player-controls">
+      <button id="playBtn" class="player-btn" title="Play/Pause">
+        <svg width="24" height="24" viewBox="0 0 24 24">
+          <polygon points="5,3 19,12 5,21" fill="#0ff"/>
+        </svg>
+      </button>
+      <button id="muteBtn" class="player-btn" title="Mute/Unmute">
+        <svg id="iconVolume" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M3 9v6h4l5 5V4L7 9H3z" fill="#0ff"/>
+        </svg>
+      </button>
+      <button id="fsBtn" class="player-btn" title="Fullscreen">
+        <svg width="24" height="24" viewBox="0 0 24 24">
+          <path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zm6 10v6h-6v-2h4v-4h2zm-16 6v-6h2v4h4v2H4z" fill="#0ff"/>
+        </svg>
+      </button>
+    </div>
   </div>
 </div>
 
-<!-- ===== Countdown ===== -->
+<!-- COUNTDOWN -->
 <section id="countdown-section">
+  <h2 data-lang-en>Time left until premiere</h2>
+  <h2 data-lang-ru style="display:none">До премьеры осталось</h2>
   <div id="countdown">
-    <div><span class="cd-days">00</span><span class="label" data-lang-en>Days</span><span class="label" data-lang-ru style="display:none">Дней</span></div>
-    <div><span class="cd-hours">00</span><span class="label" data-lang-en>Hours</span><span class="label" data-lang-ru style="display:none">Часов</span></div>
-    <div><span class="cd-minutes">00</span><span class="label" data-lang-en>Minutes</span><span class="label" data-lang-ru style="display:none">Минут</span></div>
-    <div><span class="cd-seconds">00</span><span class="label" data-lang-en>Seconds</span><span class="label" data-lang-ru style="display:none">Секунд</span></div>
+    <div class="time-box"><span class="cd-days">00</span><small>Days</small></div>
+    <div class="time-box"><span class="cd-hours">00</span><small>Hours</small></div>
+    <div class="time-box"><span class="cd-minutes">00</span><small>Minutes</small></div>
+    <div class="time-box"><span class="cd-seconds">00</span><small>Seconds</small></div>
   </div>
 </section>
 
-<!-- ===== Footer ===== -->
+<!-- FOOTER -->
 <footer>
   <p data-lang-en>© Mesropyans Production — All rights reserved.</p>
   <p data-lang-ru style="display:none">© Mesropyans Production — Все права защищены.</p>
 </footer>
 
 <script src="script.js"></script>
-<script src="timer.js"></script>
 </body>
 </html>
