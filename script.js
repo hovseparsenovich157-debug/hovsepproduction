@@ -20,8 +20,13 @@ document.querySelector('.prev').addEventListener('click',prevSlide);
 function updateCarousel(){slides.forEach((s,i)=>s.style.transform=`translateX(${-100*slideIndex}%)`);}
 setInterval(nextSlide,2000);
 
-// MAIN VIDEO
+// VIDEO LIST
+const videoList=['chto budet.mp4','video1.mp4','skoro.mp4','grustno.mp4'];
+let videoIndex=0;
 const mainVideo=document.getElementById('mainPlayer');
+mainVideo.src=videoList[videoIndex];
+
+// MAIN VIDEO CONTROLS
 const mainPlay=document.getElementById('mainPlay');
 const mainMute=document.getElementById('mainMute');
 const rewindBtn=document.getElementById('rewind');
@@ -34,45 +39,4 @@ mainPlay.addEventListener('click',()=>{mainVideo.paused?mainVideo.play():mainVid
 mainMute.addEventListener('click',()=>{mainVideo.muted=!mainVideo.muted;});
 rewindBtn.addEventListener('click',()=>{mainVideo.currentTime=Math.max(0,mainVideo.currentTime-15);});
 forwardBtn.addEventListener('click',()=>{mainVideo.currentTime=Math.min(mainVideo.duration,mainVideo.currentTime+5);});
-mainVideo.addEventListener('timeupdate',()=>{progressFilled.style.width=(mainVideo.currentTime/mainVideo.duration*100)+'%';});
-progressBar.addEventListener('click',(e)=>{const rect=e.currentTarget.getBoundingClientRect();mainVideo.currentTime=(e.clientX-rect.left)/rect.width*mainVideo.duration;});
-mainFS.addEventListener('click',()=>{mainVideo.requestFullscreen();});
-
-// POSTERS (ПАРОВОЗИК)
-const posters=document.querySelectorAll('.poster');
-const overlay=document.getElementById('playerOverlay');
-const overlayVideo=document.getElementById('overlayVideo');
-const closeOverlay=document.getElementById('closeOverlay');
-
-posters.forEach(p=>{
-  p.addEventListener('click',()=>{
-    overlayVideo.src=p.dataset.video;
-    overlay.classList.add('active');
-    overlayVideo.play();
-  });
-});
-closeOverlay.addEventListener('click',()=>{
-  overlayVideo.pause();
-  overlayVideo.src='';
-  overlay.classList.remove('active');
-});
-
-// COUNTDOWN
-const countdownDate=new Date('April 24,2026 00:00:00').getTime();
-const daysEl=document.getElementById('days');
-const hoursEl=document.getElementById('hours');
-const minutesEl=document.getElementById('minutes');
-const secondsEl=document.getElementById('seconds');
-
-setInterval(()=>{
-  const now=new Date().getTime();
-  const diff=countdownDate-now;
-  const days=Math.floor(diff/(1000*60*60*24));
-  const hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-  const minutes=Math.floor((diff%(1000*60*60))/(1000*60));
-  const seconds=Math.floor((diff%(1000*60))/1000);
-  daysEl.innerText=days.toString().padStart(2,'0');
-  hoursEl.innerText=hours.toString().padStart(2,'0');
-  minutesEl.innerText=minutes.toString().padStart(2,'0');
-  secondsEl.innerText=seconds.toString().padStart(2,'0');
-},1000);
+progressBar
