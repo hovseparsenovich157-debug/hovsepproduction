@@ -1,42 +1,96 @@
-// THEME TOGGLE
-document.getElementById('themeToggle').addEventListener('click',()=>{
-  document.body.classList.toggle('dark-theme');
-  document.body.classList.toggle('light-theme');
+// VIDEO LIST
+const videoList = ["skoro.mp4","video1.mp4","chto budet.mp4","grustno.mp4"];
+let mainPlayer = document.getElementById("mainPlayer");
+let currentVideoIndex = 0;
+mainPlayer.src = videoList[currentVideoIndex];
+
+// MAIN PLAYER CONTROLS
+document.getElementById("mainPlay").addEventListener("click",()=>{
+  mainPlayer.paused ? mainPlayer.play() : mainPlayer.pause();
+});
+document.getElementById("mainMute").addEventListener("click",()=>{
+  mainPlayer.muted = !mainPlayer.muted;
+  document.getElementById("mainMute").querySelector("img").src = mainPlayer.muted ? "volume-off.png":"volume-on.png";
+});
+document.getElementById("rewind").addEventListener("click",()=>{mainPlayer.currentTime-=15;});
+document.getElementById("forward").addEventListener("click",()=>{mainPlayer.currentTime+=5;});
+document.getElementById("mainFS").addEventListener("click",()=>{
+  if(mainPlayer.requestFullscreen) mainPlayer.requestFullscreen();
 });
 
-// LANGUAGE TOGGLE
-document.getElementById('langToggle').addEventListener('click',()=>{
-  document.querySelectorAll('[data-lang-en]').forEach(e=>e.style.display=e.style.display==='none'?'block':'none');
-  document.querySelectorAll('[data-lang-ru]').forEach(e=>e.style.display=e.style.display==='none'?'block':'none');
+// PROGRESS BAR
+let progressBar = document.getElementById("progressBar");
+let progressFilled = document.getElementById("progressFilled");
+mainPlayer.addEventListener("timeupdate",()=>{
+  let percent = (mainPlayer.currentTime / mainPlayer.duration) * 100;
+  progressFilled.style.width = percent+"%";
+});
+progressBar.addEventListener("click",(e)=>{
+  let pos = e.offsetX / progressBar.offsetWidth;
+  mainPlayer.currentTime = pos * mainPlayer.duration;
+});
+
+// NEXT VIDEO AUTOMATIC
+mainPlayer.addEventListener("ended",()=>{
+  currentVideoIndex = (currentVideoIndex +1) % videoList.length;
+  mainPlayer.src = videoList[currentVideoIndex];
+  mainPlayer.play();
 });
 
 // CAROUSEL
-let slideIndex=0;
-const slides=document.querySelectorAll('.slide');
-const nextSlide=()=>{slideIndex=(slideIndex+1)%slides.length;updateCarousel();}
-const prevSlide=()=>{slideIndex=(slideIndex-1+slides.length)%slides.length;updateCarousel();}
-document.querySelector('.next').addEventListener('click',nextSlide);
-document.querySelector('.prev').addEventListener('click',prevSlide);
-function updateCarousel(){slides.forEach((s,i)=>s.style.transform=`translateX(${-100*slideIndex}%)`);}
-setInterval(nextSlide,2000);
+let slides = document.querySelectorAll(".slide");
+let currentSlide = 0;
+function showSlide(index){
+  slides.forEach((s,i)=> s.style.transform = `translateX(${(i-index)*100}%)`);
+}
+document.querySelector(".next").addEventListener("click",()=>{currentSlide = (currentSlide+1)%slides.length;showSlide(currentSlide);});
+document.querySelector(".prev").addEventListener("click",()=>{currentSlide = (currentSlide-1+slides.length)%slides.length;showSlide(currentSlide);});
+setInterval(()=>{currentSlide = (currentSlide+1)%slides.length;showSlide(currentSlide);},2000);
+showSlide(currentSlide);
 
-// VIDEO LIST
-const videoList=['chto budet.mp4','video1.mp4','skoro.mp4','grustno.mp4'];
-let videoIndex=0;
-const mainVideo=document.getElementById('mainPlayer');
-mainVideo.src=videoList[videoIndex];
+// POSTERS (ПАРОВОЗИК)
+document.querySelectorAll(".poster").forEach(p=>{
+  p.addEventListener("click",()=>{
+    let overlay = document.getElementById("playerOverlay");
+    let overlayVideo = document.getElementById("overlayVideo");
+    overlayVideo.src = p.dataset.video;
+    overlay.classList.add("active");
+    overlayVideo.play();
+  });
+});
+document.getElementById("closeOverlay").addEventListener("click",()=>{
+  let overlay = document.getElementById("playerOverlay");
+  let overlayVideo = document.getElementById("overlayVideo");
+  overlayVideo.pause();
+  overlayVideo.src="";
+  overlay.classList.remove("active");
+});
 
-// MAIN VIDEO CONTROLS
-const mainPlay=document.getElementById('mainPlay');
-const mainMute=document.getElementById('mainMute');
-const rewindBtn=document.getElementById('rewind');
-const forwardBtn=document.getElementById('forward');
-const progressFilled=document.getElementById('progressFilled');
-const progressBar=document.getElementById('progressBar');
-const mainFS=document.getElementById('mainFS');
+// COUNTDOWN
+function countdown(){
+  let now = new Date();
+  let eventDate = new Date("April 24, 2026 00:00:00");
+  let total = eventDate-now;
+  let days = Math.floor(total/(1000*60*60*24));
+  let hours = Math.floor((total/(1000*60*60))%24);
+  let minutes = Math.floor((total/1000/60)%60);
+  let seconds = Math.floor((total/1000)%60);
+  document.getElementById("days").innerText=days.toString().padStart(2,"0");
+  document.getElementById("hours").innerText=hours.toString().padStart(2,"0");
+  document.getElementById("minutes").innerText=minutes.toString().padStart(2,"0");
+  document.getElementById("seconds").innerText=seconds.toString().padStart(2,"0");
+}
+setInterval(countdown,1000);
+countdown();
 
-mainPlay.addEventListener('click',()=>{mainVideo.paused?mainVideo.play():mainVideo.pause();});
-mainMute.addEventListener('click',()=>{mainVideo.muted=!mainVideo.muted;});
-rewindBtn.addEventListener('click',()=>{mainVideo.currentTime=Math.max(0,mainVideo.currentTime-15);});
-forwardBtn.addEventListener('click',()=>{mainVideo.currentTime=Math.min(mainVideo.duration,mainVideo.currentTime+5);});
-progressBar
+// THEME TOGGLE
+document.getElementById("themeToggle").addEventListener("click",()=>{
+  document.body.classList.toggle("dark-theme");
+  document.body.classList.toggle("light-theme");
+});
+
+// LANGUAGE TOGGLE
+document.getElementById("langToggle").addEventListener("click",()=>{
+  document.querySelectorAll("[data-lang-en]").forEach(el=>el.style.display=el.style.display==="none"?"inline":"none");
+  document.querySelectorAll("[data-lang-ru]").forEach(el=>el.style.display=el.style.display==="none"?"inline":"none");
+});
