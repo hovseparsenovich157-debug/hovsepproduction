@@ -1,107 +1,52 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ------------------------------
-  // 🔘 Верхние кнопки (домой/тема/язык)
-  // ------------------------------
-  const themeBtn = document.getElementById("themeToggle");
-  const langBtn = document.getElementById("langToggle");
-
-  // Переключение темы
-  if (themeBtn) {
-    themeBtn.addEventListener("click", () => {
-      document.body.classList.toggle("dark-theme");
-    });
-  }
+  // Верхние кнопки
+  document.getElementById("themeToggle").addEventListener("click", ()=>{ document.body.classList.toggle("dark-theme"); });
+  document.getElementById("homeBtn").addEventListener("click", ()=>{ window.scrollTo({top:0, behavior:"smooth"}); });
 
   // Переключение языка
-  if (langBtn) {
-    langBtn.addEventListener("click", () => {
-      alert("Функция смены языка пока в разработке 🙂");
-    });
-  }
-
-  // ------------------------------
-  // ▶️ Видео плеер
-  // ------------------------------
-  const posters = document.querySelectorAll(".poster");
-  posters.forEach(poster => {
-    poster.addEventListener("click", () => {
-      const videoUrl = poster.dataset.video;
-      if (videoUrl) {
-        const video = document.createElement("video");
-        video.src = videoUrl;
-        video.controls = true;
-        video.autoplay = true;
-        video.style.position = "fixed";
-        video.style.top = "0";
-        video.style.left = "0";
-        video.style.width = "100%";
-        video.style.height = "100%";
-        video.style.zIndex = "9999";
-        video.style.backgroundColor = "black";
-
-        // Закрытие по клику
-        video.addEventListener("click", () => video.remove());
-
-        document.body.appendChild(video);
-        video.requestFullscreen?.();
-      }
-    });
+  let lang="en";
+  document.getElementById("langToggle").addEventListener("click", ()=>{
+    lang = (lang==="en")?"ru":"en";
+    document.querySelectorAll("[data-lang-en]").forEach(e=>e.style.display=(lang==="en")?"inline":"none");
+    document.querySelectorAll("[data-lang-ru]").forEach(e=>e.style.display=(lang==="ru")?"inline":"none");
   });
 
-  // ------------------------------
-  // 🎠 Старая карусель
-  // ------------------------------
-  const slides = document.querySelectorAll(".slide");
-  const prevBtn = document.querySelector(".prev");
-  const nextBtn = document.querySelector(".next");
-  let idx = 0;
-
-  function showSlide(i) {
-    slides.forEach((s, n) => s.classList.toggle("active", n === i));
-  }
-
-  function nextSlide() {
-    idx = (idx + 1) % slides.length;
-    showSlide(idx);
-  }
-
-  function prevSlide() {
-    idx = (idx - 1 + slides.length) % slides.length;
-    showSlide(idx);
-  }
-
-  if (nextBtn && prevBtn) {
-    nextBtn.addEventListener("click", nextSlide);
-    prevBtn.addEventListener("click", prevSlide);
-  }
-
+  // Карусель
+  const slides=document.querySelectorAll(".slide");
+  const prevBtn=document.querySelector(".prev");
+  const nextBtn=document.querySelector(".next");
+  let idx=0;
+  function showSlide(i){ slides.forEach((s,n)=>s.classList.toggle("active", n===i)); }
+  function nextSlide(){ idx=(idx+1)%slides.length; showSlide(idx); }
+  function prevSlide(){ idx=(idx-1+slides.length)%slides.length; showSlide(idx); }
+  nextBtn.addEventListener("click", nextSlide);
+  prevBtn.addEventListener("click", prevSlide);
   showSlide(idx);
 
-  // ------------------------------
-  // 🚂 Паровозик (горизонтальный скролл + свайп)
-  // ------------------------------
-  const postersRow = document.getElementById("postersRow");
-  if (postersRow) {
-    let startX = 0;
-    let scrollStart = 0;
+  // Паровозик постеров
+  const posters=document.querySelectorAll(".poster");
+  const overlay=document.getElementById("playerOverlay");
+  const mainVideo=document.getElementById("mainVideo");
+  const closeBtn=document.getElementById("closeOverlay");
+  posters.forEach(p=>p.addEventListener("click", ()=>{
+    mainVideo.src = p.dataset.video;
+    overlay.classList.add("active");
+    mainVideo.play();
+    mainVideo.requestFullscreen?.();
+  }));
+  closeBtn.addEventListener("click", ()=>{
+    mainVideo.pause();
+    overlay.classList.remove("active");
+  });
 
-    postersRow.addEventListener("touchstart", (e) => {
-      startX = e.touches[0].clientX;
-      scrollStart = postersRow.scrollLeft;
-    }, { passive: true });
+  // Свайп для постеров
+  const postersRow=document.getElementById("postersRow");
+  let startX=0, scrollStart=0;
+  postersRow.addEventListener("touchstart", e=>{ startX=e.touches[0].clientX; scrollStart=postersRow.scrollLeft; }, {passive:true});
+  postersRow.addEventListener("touchend", e=>{
+    let diff = startX - e.changedTouches[0].clientX;
+    const cardWidth = postersRow.querySelector(".poster").offsetWidth + 16;
+    if(Math.abs(diff)>50){ postersRow.scrollTo({left: scrollStart + (diff>0?cardWidth:-cardWidth), behavior:"smooth"}); }
+  });
 
-    postersRow.addEventListener("touchend", (e) => {
-      let endX = e.changedTouches[0].clientX;
-      let diff = startX - endX;
-      const cardWidth = postersRow.querySelector(".poster").offsetWidth + 16;
-
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-          postersRow.scrollTo({ left: scrollStart + cardWidth, behavior: "smooth" });
-        } else {
-          postersRow.scrollTo({ left: scrollStart - cardWidth, behavior: "smooth" });
-        }
-      }
-    });
-  }
 });
